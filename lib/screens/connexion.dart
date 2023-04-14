@@ -40,7 +40,8 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  var _obscureText = false; // Pour masquer ou voir le mot de passe
+  //var _obscureText = false; // Pour masquer ou voir le mot de passe
+  bool _isPasswordVisible = false;
 
   final LocalAuthentication auth = LocalAuthentication();
   MyConnexion connexion = const MyConnexion();
@@ -109,13 +110,12 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
 
     final String message = authenticated ? 'Autorisé' : 'Non autorisé';
     setState(() {
-
       if(message == 'Autorisé') {
         _authorized = message;
-        _obscureText = true;
-        appelBouton();
-      }
+        //_obscureText = true;
 
+        biometricConnexion();
+      }
     });
   }
 
@@ -151,7 +151,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                 )),
             const Divider(
               //color: Colors.blueAccent,
-              height: 50,
+              height: 30,
               thickness: 1,
             ),
 
@@ -177,12 +177,12 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                     child: TextFormField(
 
                       controller: mailController,
-                      /*validator: (value) {
+                      validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Veuillez saisir un email';
                         }
                         return null;
-                      },*/
+                      },
                       decoration: InputDecoration(
                         fillColor: globalBackgroundColor(context, colorBackground),
                         filled: true,
@@ -196,28 +196,40 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextFormField(
-                      obscureText: _obscureText,
+                      obscureText: !_isPasswordVisible,
                       // pour voir ou non le mot de passe
                       controller: passwordController,
-                      /*validator: (value) {
+                      validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Veuillez saisir un mot de passe';
                         }
                         return null;
-                      },*/
+                      },
                       decoration: InputDecoration(
                         fillColor: globalBackgroundColor(context, colorBackground),
                         filled: true,
                         border: const OutlineInputBorder(),
                         labelText: 'Mot de passe',
-                        suffixIcon: !_obscureText?const Icon(Icons.visibility)
-                            :const Icon(Icons.visibility_off),
-                      ),
-                      onTap: () {
+                        suffixIcon: IconButton(
+                          icon: Icon(_isPasswordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        )),
+
+
+                        /* !_obscureText?const Icon(Icons.visibility)
+                            :const Icon(Icons.visibility_off),*/
+
+                     /* onTap: () {
                         setState(() {
                           _obscureText = !_obscureText; // sur tap, on voit ou masque le MdP
                         });
-                      },
+                      },*/
                     ),
                   ),
                 ],
@@ -269,18 +281,23 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                       //homePage(context);
                     }
                   },
-                  child: const Text('CONNEXION'),
+                  child: const Text('VALIDER'),
                 )
-            ),
-            const Divider(
-              height: 30,
-              thickness: 1,
-              //color: Colors.blueAccent,
             ),
 
             Container(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Divider(
+                height: 70,
+                thickness: 1,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+
+
+            Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.only(bottom: 10.0),
+                padding: const EdgeInsets.only(bottom: 5.0),
                 child: const Text(
                   'Connexion biométrique',
                   style: TextStyle(
@@ -295,7 +312,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
 
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
+                  //shape: const CircleBorder(),
                   padding: const EdgeInsets.all(0),
                   //primary: Colors.blue
                 ),
@@ -306,7 +323,16 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                 },
               ),
             ),
-            const Divider(),
+
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Divider(
+                height: 90,
+                thickness: 1,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+
 
             Container(
               height: 50,
@@ -339,13 +365,12 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
     );
   }
 
-  appelBouton() async {
-    if (_formKey.currentState!.validate()) {
+  biometricConnexion() async {
       setState(() async {
-        String connex = await userController.fetchUserConnexion(
+        String connec = await userController.fetchUserConnexion(
             "pascal@gillotin", "Bonjour01@");
-        await Future.delayed(const Duration(milliseconds: 300));
-        if (connex == "1" && mounted) {
+        //await Future.delayed(const Duration(milliseconds: 300));
+        if (connec == "1" && mounted) {
           globalsLogin = "pascal@gillotin";
           verifControleur(globalsLogin!);
           Navigator.of(context).pop();
@@ -353,7 +378,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
         }
       }
       );
-    }
+
   }
 }
 
