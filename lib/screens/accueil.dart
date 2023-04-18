@@ -24,9 +24,6 @@ class _HomeState extends State<Home> {
   var retardController= PerioController(PerioRepository());
   var joursController= PerioController(PerioRepository());
 
-
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -246,7 +243,8 @@ class _HomeState extends State<Home> {
           ]
       ),
 
-      bottomNavigationBar: BottomAppBar(
+
+      /*bottomNavigationBar: BottomAppBar(
         //color: Colors.orange,
         elevation: 10,
 
@@ -257,7 +255,7 @@ class _HomeState extends State<Home> {
             size: 35.0,
 
           ),
-          title:  Text(globalsLogin!,
+          title: Text(globalsLogin!,
             style: const TextStyle(
               //fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -268,7 +266,8 @@ class _HomeState extends State<Home> {
 
 
         ),
-      ),
+      ),*/
+
 
     );
 

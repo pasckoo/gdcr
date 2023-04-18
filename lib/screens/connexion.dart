@@ -267,6 +267,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                       if (connex == "1" && mounted) {
                         globalsLogin = mailController.text;
                         verifControleur(mailController.text);
+                        remplissageVarUser(mailController.text);
                         Navigator.of(context).pop();
                         _navigateToHomePage(context);
                       }
@@ -373,6 +374,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
         if (connec == "1" && mounted) {
           globalsLogin = "pascal@gillotin";
           verifControleur(globalsLogin!);
+          remplissageVarUser("pascal@gillotin");
           Navigator.of(context).pop();
           _navigateToHomePage(context);
         }

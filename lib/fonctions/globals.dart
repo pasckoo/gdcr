@@ -7,6 +7,12 @@ import '../controller/user_controller.dart';
 
 
 String? globalsLogin; // User login
+String? globalsNom = '';
+String? globalsPrenom = '';
+String? globalsFonction = '';
+String? globalsType = '';
+String? globalsImage = '';
+
 bool? globalsActive = false; // le User est contrôleur
 bool globalFingerPrint = false;
 int globalsNbControles = 0;
@@ -21,17 +27,26 @@ String globalEcrireDialog = 'Pour ECRIRE le tag';
 verifControleur(String login) async {
   var userController=UserController(UserRepository());
   var retour = await userController.fetchUserControleurList();
-
   var controleur = jsonDecode(retour);
   bool verif = false;
   for(var i = 0; i < controleur.length; i++ ) {
-
     if(controleur[i]['login_user'] == login){
       verif = true;
     }
    globalsActive = verif;
   }
+}
 
+remplissageVarUser(String login) async {
+  var userController = UserController(UserRepository());
+  var dataUser = await userController.fetchDataUser(login);
+  var userData = jsonDecode(dataUser);
+
+  globalsNom = userData['nom_user'];
+  globalsPrenom = userData['prenom_user'];
+  globalsFonction = userData['fonction_user'];
+  globalsType = userData['type_user'];
+  globalsImage = userData['image_user'];
 }
 
 getFormatedDate(date) {
@@ -106,6 +121,7 @@ class UpperCaseTextFormatter extends TextInputFormatter {
     );
   }
 }
+
 
 
 

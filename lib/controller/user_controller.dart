@@ -14,4 +14,9 @@ class UserController {
   Future<String> fetchUserConnexion(String login, String mdp) async {
     return _repository.getConnexion(login, mdp);
   }
+
+  Future<String> fetchDataUser(String login) async {
+    return _repository.getDataUser(login);
+  }
+
 }

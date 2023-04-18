@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:gdcr/fonctions/globals.dart';
 import 'package:gdcr/screens/qrviewer.dart';
 import '../../screens/materiel_detail.dart';
@@ -31,7 +30,6 @@ class _MyAppState extends State <MyappCB> {
   String _scanBarcode = '';
   String scanTag = '';
   bool texte = false;
-  String _platformVersion = 'Unknown';
 
   final TextEditingController _controller = TextEditingController();
 
@@ -40,13 +38,13 @@ class _MyAppState extends State <MyappCB> {
     super.initState();
   }
 
-  Future<void> startBarcodeScanStream() async {
+  /*Future<void> startBarcodeScanStream() async {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
         '#ff6666', 'Annuler', true, ScanMode.BARCODE)!
         .listen((barcode) => print(barcode));
-  }
+  }*/
 
-  Future<void> scanQR() async {
+  /*Future<void> scanQR() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -55,7 +53,7 @@ class _MyAppState extends State <MyappCB> {
       //print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Erreur';
-    }
+
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -69,10 +67,10 @@ class _MyAppState extends State <MyappCB> {
         navigateToMaterielScreen(context, _scanBarcode);
       }
     });
-  }
+  }*/
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> scanBarcodeNormal() async {
+  /*Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -91,7 +89,7 @@ class _MyAppState extends State <MyappCB> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
-  }
+  }*/
 
 
 

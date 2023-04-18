@@ -4,6 +4,7 @@ class UserControleur {
   String? userLogin ;
   String? userControleur;
   String? userMdp;
+  String? userFonction;
 
 
   UserControleur({this.userLogin});

@@ -27,4 +27,15 @@ class UserRepository implements RepositoryUser {
       body: data,);
     return response.body;
   }
+
+  @override
+  Future<String> getDataUser(login) async {
+    Map data = {'loginDataUser': login};
+    var url = Uri.parse('$dataURL/user_list.php');
+    http.Response response = await http.post(
+      url,
+      body: data,);
+    return response.body;
+  }
+
 }

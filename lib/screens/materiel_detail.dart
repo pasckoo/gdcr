@@ -386,7 +386,7 @@ class _MyMaterielDetailPageState extends State<MyMaterielDetailPage> {
           //mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            if(globalsLogin != null) // Pour vérifier s'il y a eu une connexion par user et MdP
+            if(globalsActive != false) // Pour vérifier s'il y a eu une connexion par user et MdP
             OutlinedButton(
               /*style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),

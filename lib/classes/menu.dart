@@ -7,6 +7,8 @@ import 'dialogs.dart';
 import 'package:flutter/material.dart';
 import '../screens/materiel_detail.dart';
 import '../screens/CB.dart';
+import 'profil.dart';
+
 
 class MyDrawer extends StatelessWidget {
   static const couleurDivider = Colors.blueAccent;
@@ -21,61 +23,12 @@ class MyDrawer extends StatelessWidget {
 
         padding: EdgeInsets.zero,
         children: <Widget>[
-
+          if(globalsLogin != null)
           const DrawerHeader(
-
-            decoration: BoxDecoration(
-              color: couleurDivider,
-              image: DecorationImage(
-                  image: AssetImage("assets/images/cover.jpg"),
-                  fit: BoxFit.cover),
-
-            ),
-
-            child: Text('',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-              ),
-            ),
-
+            child: ProfilePage(),
           ),
-          if(globalsLogin == null) // Pour vérifier s'il y a eu une connexion par user et MdP
-            ListTile(
-              leading: Icon(
-                Icons.person,
-                color: Theme.of(context).colorScheme.primary,
-                size: 35.0,
 
-              ),
-              title: const Text('Utilisateur anonyme',
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  //color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-          //const Divider(),
           if(globalsLogin != null) // Pour vérifier s'il y a eu une connexion par user et MdP
-          ListTile(
-            leading: Icon(
-              Icons.person,
-              color: Theme.of(context).colorScheme.primary,
-              size: 35.0,
-
-            ),
-            title:  Text(globalsLogin!,
-              style: const TextStyle(
-                //fontWeight: FontWeight.bold,
-                fontSize: 20,
-                //color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
-          /*const Divider(
-            color: couleurDivider,
-          ),*/
           ListTile(
             enabled: true,
             leading: Icon(Icons.home, color: Theme.of(context).colorScheme.primary),
@@ -93,9 +46,7 @@ class MyDrawer extends StatelessWidget {
             trailing: const Icon(Icons.keyboard_arrow_right_rounded),
 
           ),
-          /*const Divider(
-            color: couleurDivider,
-          ),*/
+
           ListTile(
             enabled: true,
             leading: Icon(Icons.search_rounded, color: Theme.of(context).colorScheme.primary),
@@ -113,9 +64,7 @@ class MyDrawer extends StatelessWidget {
             trailing: const Icon(Icons.keyboard_arrow_right_rounded),
 
           ),
-          /*const Divider(
-            color: couleurDivider,
-          ),*/
+
           ListTile(
             enabled: true,
             leading: Icon(Icons.handyman_rounded, color: Theme.of(context).colorScheme.primary),
@@ -135,9 +84,7 @@ class MyDrawer extends StatelessWidget {
             trailing: const Icon(Icons.keyboard_arrow_right_rounded),
 
           ),
-          /*const Divider(
-            color: couleurDivider,
-          ),*/
+
           ListTile(
             leading: Icon(Icons.checklist_rtl, color: Theme.of(context).colorScheme.primary),
             title: const Text(
@@ -154,9 +101,7 @@ class MyDrawer extends StatelessWidget {
               _navigateToControleListScreen(context);
             },
           ),
-          /*const Divider(
-            color: couleurDivider,
-          ),*/
+
           ListTile(
             leading: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary),
             title: const Text(
@@ -173,9 +118,7 @@ class MyDrawer extends StatelessWidget {
 
             },
           ),
-          /*const Divider(
-            color: couleurDivider,
-          ),*/
+
           ListTile(
             leading: Icon(Icons.exit_to_app_rounded, color: Theme.of(context).colorScheme.primary),
             onTap: (){
@@ -195,10 +138,30 @@ class MyDrawer extends StatelessWidget {
             ),
             trailing: const Icon(Icons.keyboard_arrow_right_rounded),
           ),
+          const SizedBox(
+            height: 80,
+          ),
+          Container(
+           padding: const EdgeInsets.only(bottom:200.0),
+            decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.background,
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Theme.of(context).scaffoldBackgroundColor,
+                    Theme.of(context).colorScheme.background,
+                    Theme.of(context).colorScheme.background,
+                    Theme.of(context).colorScheme.background
+                  ]),
+                borderRadius: const BorderRadius.only(
+                 topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50)
+                )),
+          ),
         ],
       ),
-    );
 
+    );
 
   }
 }
