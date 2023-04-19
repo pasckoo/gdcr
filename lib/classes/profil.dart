@@ -17,22 +17,21 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 5.0),
               child: Column(
                 children: [
-                  Text('${globalsPrenom!} ${globalsNom!}',
-
+                  Text(globalsLogin != ''?'${globalsPrenom!} ${globalsNom!}':'Utilisateur anonyme',
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
                         ?.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  Text(globalsType == "1"?"Administrateur - ${globalsFonction!}":"Utilisateur - ${globalsFonction!}",
+                  globalsType != ''?Text(globalsType == "1"?"Administrateur - ${globalsFonction!}":"Utilisateur - ${globalsFonction!}",
 
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
                         ?.copyWith(fontWeight: FontWeight.normal, fontSize: 14),
-                  ),
+                  ):const Text('en lecture seule'),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +158,7 @@ class _TopPortion extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: globalsImageUser(),
+                        image: globalsImageUser(globalsLogin!),
                     ),
                   ),
                 ),
@@ -184,9 +183,12 @@ class _TopPortion extends StatelessWidget {
     );
   }
 
-  globalsImageUser() {
+  globalsImageUser(String login) {
+    var image = login;
+    if(login != ''){image = 'http://151.80.129.92/IMG/photos/$globalsImage.png';}
+    else{image = 'http://151.80.129.92/IMG/photos/0.png';}
     return NetworkImage(
-        'http://151.80.129.92/IMG/photos/$globalsImage.png',
+      image,
     );
   }
 

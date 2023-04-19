@@ -246,8 +246,9 @@ class _MyAppState extends State <MyConf_NFC>{
                       alignment: WrapAlignment.center,
 
                       children: const [
-                        Text('NFC ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
                         Icon(Icons.nfc_rounded, size: 55,),
+                        SizedBox(width: 5.0,),
+                        Text('NFC ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
                         Text('La puce NFC contient le repère du matériel\n'),
 
                       ],
@@ -280,7 +281,7 @@ class _MyAppState extends State <MyConf_NFC>{
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
 
-                            title: const Text('Ecrire un nouveau repère',
+                            title: const Text('Entrer un nouveau repère',
                               textAlign: TextAlign.center,),
 
                             content: TextField(
@@ -297,6 +298,13 @@ class _MyAppState extends State <MyConf_NFC>{
                                     },
                                   ),
                                   label: const Text('Nouveau repère', style: TextStyle(fontSize: 16.0),),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: globalBorderColor(context, true)
+                                    )
+                                  ),
                                 ),
                                 textAlign: TextAlign.center,
                                 onChanged: (value){

@@ -188,91 +188,113 @@ class _MyAppState extends State <MyappCB> {
                 //mainAxisAlignment: MainAxisAlignment.center,
 
                   children: <Widget>[
+                    Container(
+                      margin: globalMargin(),
+                      decoration: BoxDecoration(
+                        color: globalBackgroundColor(context, colorBackground),
+                        borderRadius: BorderRadius.circular(5),
+                        border:  Border.all(color: globalBorderColor(context, borderColor),),
+                        boxShadow: globalContainerShadow(),
+                      ),
+                      child: ListTile(
+                        contentPadding:const EdgeInsets.only(left: 1.0, right: 10.0),
+                        onTap: _isButtonDisabled ? null : _handleButtonTap,
+                        leading: const Icon(Icons.nfc_rounded, size: 50.0,),
+                        title: const Text('Lire la puce NFC...'),
+                        trailing: const Icon(Icons.keyboard_arrow_right_rounded),
 
-                    ElevatedButton.icon(
-
-                        icon: const Icon(Icons.nfc_rounded, size: 50.0,),
-                        onPressed: _isButtonDisabled ? null : _handleButtonTap,
-                        label: const Text('Lire la puce NFC')
+                      ),
                     ),
 
                     const Divider(height: 20.0,),
+                    Container(
+                      margin: globalMargin(),
+                      decoration: BoxDecoration(
+                        color: globalBackgroundColor(context, colorBackground),
+                        borderRadius: BorderRadius.circular(5),
+                        border:  Border.all(color: globalBorderColor(context, borderColor),),
+                        boxShadow: globalContainerShadow(),
+                      ),
+                      child: ListTile(
+                        contentPadding:const EdgeInsets.only(left: 1.0, right: 10.0),
+                        onTap: (){ navigateToScanPage(context);},
+                        leading: const Icon(Icons.qr_code_2, size: 50.0),
+                        title: const Text('Scanner le QR-Code...'),
+                        trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+                      )
 
-
-
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.qr_code_2, size: 50.0,),
-                      onPressed: () {
-                        /*setState(() {
-                          _scanBarcode = '';
-                          texte = false;
-                          //scanQR();
-                          //navigateToBarcodeFragment(context);
-                        });*/
-                        navigateToScanPage(context);
-                            },
-                      label: const Text('scanner le QR-Code'),
                     ),
-
 
                     const SizedBox(
-                      height: 70,
+                      height: 18,
+                    ),
+
+                    Container(
+                      margin: globalMargin(),
+                      decoration: BoxDecoration(
+                        color: globalBackgroundColor(context, colorBackground),
+                        borderRadius: BorderRadius.circular(5),
+                        border:  Border.all(color: globalBorderColor(context, borderColor),),
+                        boxShadow: globalContainerShadow(),
+                        ),
+                      child: TextField(
+
+                          controller: _controller,
+                          style: const TextStyle(fontSize: 20),
+                          inputFormatters: [
+                            UpperCaseTextFormatter(),
+                          ],
+                          decoration: InputDecoration(
+                            isDense: true,
+                            prefixIcon: Icon(
+                              Icons.screen_search_desktop_outlined,
+                              size: 50,
+                              color: Theme.of(context).primaryColor,
+                            ),
+
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.clear_rounded),
+                              onPressed: () {
+                                setState(() {
+                                  _controller.clear();
+                                  FocusScope.of(context).unfocus();
+                                  texte = false;
+                                  _scanBarcode = '';
+                                });
+                              },
+                            ),
+                            label: const Text('    Entrer le repère',
+                              style: TextStyle(
+
+                                fontSize: 16,
+
+                              ),
+                            ),
+                            /*focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 1,
+                                  color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .primary),
+                              //borderRadius: BorderRadius.circular(1),
+                            ),*/
+                          ),
+                          textAlign: TextAlign.center,
+                          onChanged: (value) {
+                            _scanBarcode = value;
+                            setState(() {
+                              if (_scanBarcode != '') {
+                                texte = true;
+                              }
+                              else {
+                                texte = false;
+                              }
+                            });
+                          }),
+
                     ),
 
 
-                    TextField(
-                        controller: _controller,
-                        style: const TextStyle(fontSize: 20),
-                        inputFormatters: [
-                          UpperCaseTextFormatter(),
-                        ],
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Theme
-                                .of(context)
-                                .colorScheme
-                                .primary)
-                          ),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.clear_rounded),
-                            onPressed: () {
-                              setState(() {
-                                _controller.clear();
-                                FocusScope.of(context).unfocus();
-                                texte = false;
-                                _scanBarcode = '';
-                              });
-                            },
-                          ),
-                          label: const Text('Entrer le repère'),
-                          /*enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme
-                                .of(context)
-                                .colorScheme
-                                .primary),
-                            borderRadius: BorderRadius.circular(15),
-
-                          ),*/
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme
-                                .of(context)
-                                .colorScheme
-                                .primary),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                        onChanged: (value) {
-                          _scanBarcode = value;
-                          setState(() {
-                            if (_scanBarcode != '') {
-                              texte = true;
-                            }
-                            else {
-                              texte = false;
-                            }
-                          });
-                        }),
 
 
                     const SizedBox(
@@ -331,4 +353,8 @@ initialValue(val) {
 void navigateToScanPage(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const QRViewer()));
+}
+
+entrerRepere(){
+  //
 }

@@ -138,11 +138,11 @@ class MyDrawer extends StatelessWidget {
             ),
             trailing: const Icon(Icons.keyboard_arrow_right_rounded),
           ),
-          const SizedBox(
-            height: 80,
+          /*const SizedBox(
+            height: 120,
           ),
           Container(
-           padding: const EdgeInsets.only(bottom:200.0),
+           padding: const EdgeInsets.only(bottom:160.0),
             decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.background,
                 gradient: LinearGradient(
@@ -157,7 +157,7 @@ class MyDrawer extends StatelessWidget {
                  topLeft: Radius.circular(50),
                   topRight: Radius.circular(50)
                 )),
-          ),
+          ),*/
         ],
       ),
 
