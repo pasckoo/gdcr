@@ -12,14 +12,16 @@ String? globalsPrenom = '';
 String? globalsFonction = '';
 String? globalsType = '';
 String? globalsImage = '';
+bool? globalsActive = false; // le User est contrôleur à true
 
-bool? globalsActive = false; // le User est contrôleur
 bool globalFingerPrint = false;
 int globalsNbControles = 0;
 bool colorBackground = false;
 bool borderColor = false;
 Color c1 = Colors.amber;
+
 double globalWithSizedBox = 250;
+
 String globalEffaceDialog = 'Pour EFFACER le tag';
 String globalLireDialog = 'Pour LIRE le tag';
 String globalEcrireDialog = 'Pour ECRIRE le tag';
@@ -40,13 +42,21 @@ verifControleur(String login) async {
 remplissageVarUser(String login) async {
   var userController = UserController(UserRepository());
   var dataUser = await userController.fetchDataUser(login);
-  var userData = jsonDecode(dataUser);
+  var userData = await jsonDecode(dataUser);
 
   globalsNom = userData['nom_user'];
   globalsPrenom = userData['prenom_user'];
   globalsFonction = userData['fonction_user'];
   globalsType = userData['type_user'];
   globalsImage = userData['image_user'];
+}
+
+razVarUser() async {
+  globalsNom = '';
+  globalsPrenom = '';
+  globalsFonction = '';
+  globalsType = '';
+  globalsImage = '';
 }
 
 getFormatedDate(date) {

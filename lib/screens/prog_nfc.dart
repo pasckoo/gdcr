@@ -222,7 +222,8 @@ class _MyAppState extends State <MyConf_NFC>{
       drawer: const MyDrawer(),
       body: Builder(builder: (BuildContext context) {
         return Container(
-            margin: const EdgeInsets.only(left:10.0,top:10.0,right:10.0,bottom:0.0),
+          margin: globalMargin(),
+            //margin: const EdgeInsets.only(left:10.0,top:10.0,right:10.0,bottom:0.0),
             alignment: Alignment.center,
 
             child: ListView(
@@ -233,8 +234,9 @@ class _MyAppState extends State <MyConf_NFC>{
                 children: <Widget>[
                   Card(
                     elevation: 10.0,
-                    margin: const EdgeInsets.only(
-                        left: 0.0, top: 0.0, right: 0.0, bottom: 10.0),
+                    margin: globalMargin(),
+                    //margin: const EdgeInsets.only(
+                    //    left: 0.0, top: 0.0, right: 0.0, bottom: 10.0),
                     color: globalBackgroundColor(context, colorBackground),
                     shape: RoundedRectangleBorder( //<-- SEE HERE
                       side: BorderSide(
@@ -256,89 +258,116 @@ class _MyAppState extends State <MyConf_NFC>{
 
                   ),
 
-                  const Divider(height: 50.0,),
+                  const SizedBox(height: 120.0,),
 
-                  ElevatedButton(
-                      onPressed: () {
+
+
+              Container(
+                  margin: globalMargin(),
+                  decoration: BoxDecoration(
+                    color: globalBackgroundColor(context, colorBackground),
+                    borderRadius: BorderRadius.circular(5),
+                    border:  Border.all(color: globalBorderColor(context, borderColor),),
+                    boxShadow: globalContainerShadow(),
+                  ),
+                  child: ListTile(
+                      contentPadding:const EdgeInsets.only(left: 1.0, right: 10.0),
+                      leading: const Icon(Icons.clear_rounded, size: 50.0,),
+                      title: const Text('Effacer la puce NFC'),
+                      trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+                      onTap: () {
                         effacerTag();
                       },
-                      child:const Text('Effacer la puce NFC')),
+                  ),
+              ),
 
                   const SizedBox(
                     height: 20,
                   ) ,
 
-                  ElevatedButton(
-                      child: const Text('Ecrire / Modifier puce NFC'),
-                    onPressed: () async {
-                      _controller.clear();
-                      showDialog(
-                        barrierDismissible: false,
-                        // l'utilisateur doit presser un bouton pour sortir! (modale)
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                  Container(
+                    margin: globalMargin(),
+                    decoration: BoxDecoration(
+                      color: globalBackgroundColor(context, colorBackground),
+                      borderRadius: BorderRadius.circular(5),
+                      border:  Border.all(color: globalBorderColor(context, borderColor),),
+                      boxShadow: globalContainerShadow(),
+                    ),
+                    child: ListTile(
+                      contentPadding:const EdgeInsets.only(left: 1.0, right: 10.0),
+                      leading: const Icon(Icons.contactless_outlined, size: 50.0,),
+                      title: const Text('Ecrire / Modifier puce NFC'),
+                      trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+                      onTap: () async {
+                        _controller.clear();
+                        showDialog(
+                            barrierDismissible: false,
+                            // l'utilisateur doit presser un bouton pour sortir! (modale)
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
 
-                            title: const Text('Entrer un nouveau repère',
-                              textAlign: TextAlign.center,),
+                                title: const Text('Entrer un nouveau repère',
+                                  textAlign: TextAlign.center,),
 
-                            content: TextField(
-                                controller: _controller,
-                                style: const TextStyle(fontSize: 20),
-                                inputFormatters: [
-                                  UpperCaseTextFormatter(),
-                                ],
-                                decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: const Icon(Icons.clear_rounded),
-                                    onPressed: () {
-                                      _controller.clear();
+                                content: TextField(
+                                    controller: _controller,
+                                    style: const TextStyle(fontSize: 20),
+                                    inputFormatters: [
+                                      UpperCaseTextFormatter(),
+                                    ],
+                                    decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: const Icon(Icons.clear_rounded),
+                                        onPressed: () {
+                                          _controller.clear();
+                                        },
+                                      ),
+                                      label: const Text('Nouveau repère', style: TextStyle(fontSize: 16.0),),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: globalBorderColor(context, true)
+                                          )
+                                      ),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    onChanged: (value){
+                                      //scanTag = value;
+                                    }),
+
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('Annuler'),
+                                  ),
+
+
+                                  TextButton(
+                                    onPressed:() {
+                                      if(_controller.text != '') {
+                                        Navigator.pop(context, _controller.text);
+                                      }
                                     },
+                                    child: const Text('Ecrire'),
                                   ),
-                                  label: const Text('Nouveau repère', style: TextStyle(fontSize: 16.0),),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: globalBorderColor(context, true)
-                                    )
-                                  ),
-                                ),
-                                textAlign: TextAlign.center,
-                                onChanged: (value){
-                                  //scanTag = value;
-                                }),
 
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text('Annuler'),
-                              ),
-
-
-                              TextButton(
-                                onPressed:() {
-                                  if(_controller.text != '') {
-                                    Navigator.pop(context, _controller.text);
-                                  }
-                                },
-                                child: const Text('Ecrire'),
-                              ),
-
-                            ],
-                          );
-                        }
-                      ).then((val){
-                        setState(() {
-                          scanTag = val;
-                          ecrireTag(scanTag);
+                                ],
+                              );
+                            }
+                        ).then((val){
+                          setState(() {
+                            scanTag = val;
+                            ecrireTag(scanTag);
+                          });
                         });
-                      });
-                    } // onPressed
-                  ),
 
+                      },
+                    ),
+                  ),
 
                   /*TextField(
                       controller: _controller,

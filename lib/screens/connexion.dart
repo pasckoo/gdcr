@@ -63,6 +63,10 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
     );
   }
 
+
+
+
+
   Future<void> _authenticateWithBiometrics() async {
     bool authenticated = false;
     try {
@@ -122,14 +126,12 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
   @override
   Widget build(BuildContext context) {
     globalsLogin = '';
+    razVarUser();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Bienvenue'),
          centerTitle: true,
-
-
           ),
-
 
         //padding: const EdgeInsets.all(10),
         body: ListView(
@@ -265,13 +267,14 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
                           mailController.text, passwordController.text);
                       await Future.delayed(const Duration(seconds: 1));
                       if (connex == "1" && mounted) {
-                        globalsLogin = mailController.text;
-                        verifControleur(mailController.text);
-                        remplissageVarUser(mailController.text);
-                        Navigator.of(context).pop();
-                        _navigateToHomePage(context);
-                      }
-                      else {
+                          globalsLogin = mailController.text;
+                          await verifControleur(mailController.text);
+                          await remplissageVarUser(mailController.text);
+                          if(mounted) {
+                            Navigator.of(context).pop();
+                            _navigateToHomePage(context);
+                          }
+                      }else {
                         showDialog(
                           barrierDismissible: false,
                           // l'utilisateur doit presser un bouton pour sortir! (modale)
@@ -373,14 +376,15 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
         //await Future.delayed(const Duration(milliseconds: 300));
         if (connec == "1" && mounted) {
           globalsLogin = "pascal@gillotin";
-          verifControleur(globalsLogin!);
-          remplissageVarUser("pascal@gillotin");
-          Navigator.of(context).pop();
-          _navigateToHomePage(context);
+          await verifControleur(globalsLogin!);
+          await remplissageVarUser("pascal@gillotin");
+          if(mounted) {
+            Navigator.of(context).pop();
+            _navigateToHomePage(context);
+          }
         }
       }
       );
-
   }
 }
 

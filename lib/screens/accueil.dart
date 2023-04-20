@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:gdcr/screens/prog_nfc.dart';
 import 'package:gdcr/screens/reglages.dart';
 import '../classes/dialogs.dart';
 import '../classes/graphique.dart';
@@ -24,7 +25,7 @@ class _HomeState extends State<Home> {
   var retardController= PerioController(PerioRepository());
   var joursController= PerioController(PerioRepository());
 
-  @override
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -33,14 +34,14 @@ class _HomeState extends State<Home> {
         title: const Text('Accueil'),
         actions: [
           IconButton(
-          onPressed: ()=>_navigateToCBScreen(context),
+            onPressed: ()=>_navigateToCBScreen(context),
 
-          icon: const Icon(
-            Icons.search_rounded,
-            color: Colors.white70,
-            size: 35.0,
+            icon: const Icon(
+              Icons.search_rounded,
+              color: Colors.white70,
+              size: 35.0,
 
-          ),
+            ),
         )
 
         ],
@@ -159,7 +160,7 @@ class _HomeState extends State<Home> {
                                       height: 20,
                                       width: 20,
                                     ),
-                                      Icon(Icons.handyman_rounded, size: 40.0,
+                                      Icon(Icons.handyman_rounded, size: 30.0,
                                         color: Theme.of(context).primaryColor,
                                         //shadows: globalContainerShadow(),
                                       ),
@@ -193,7 +194,7 @@ class _HomeState extends State<Home> {
                               height: 20,
                               width: 20,
                             ),
-                            Icon(Icons.checklist_rtl, size: 40.0,
+                            Icon(Icons.checklist_rtl, size: 30.0,
                               color: Theme.of(context).primaryColor,
                               //shadows: globalContainerShadow(),
                             ),
@@ -227,7 +228,7 @@ class _HomeState extends State<Home> {
                               height: 20,
                               width: 20,
                             ),
-                            Icon(Icons.settings, size: 40.0,
+                            Icon(Icons.settings, size: 30.0,
                               color: Theme.of(context).primaryColor,
                               //shadows: globalContainerShadow(),
                             ),
@@ -237,6 +238,115 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
+
+                ]
+            ),
+            const Divider(height: 10,),
+            if(globalsActive == true)
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children:[
+                  Container(
+                    height: 80,
+                    width: 80,
+                    margin: const EdgeInsets.only(left:10.0,top:0.0,right:10.0,bottom:0.0),
+                    //padding: const EdgeInsets.only(left:0.0,top:0.0,right:0.0,bottom:0.0),
+                    decoration: BoxDecoration(
+                      color: globalBackgroundColor(context, colorBackground),
+                      borderRadius: BorderRadius.circular(10),
+                      border:  Border.all(color: globalBorderColor(context, borderColor),),
+                      boxShadow: globalContainerShadow(),
+                    ),
+                    child:OutlinedButton(
+                      onPressed: () {
+                        _navigateToProgNfcScreen(context);
+                      },
+                      child:Column( // Replace with a Row for horizontal icon + text
+
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 20,
+                            width: 20,
+                          ),
+                          Icon(Icons.nfc_rounded, size: 30.0,
+                            color: Theme.of(context).primaryColor,
+                            //shadows: globalContainerShadow(),
+                          ),
+                          const Divider(height: 10,),
+                          const Text("NFC", style: TextStyle(color: Color(0xff808080)),),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  /*const Spacer(),
+
+                  Container(
+                    height: 100,
+                    width: 100,
+                    margin: const EdgeInsets.only(left:10.0,top:0.0,right:10.0,bottom:0.0),
+                    decoration: BoxDecoration(
+                      color: globalBackgroundColor(context, colorBackground),
+                      borderRadius: BorderRadius.circular(10),
+                      border:  Border.all(color: globalBorderColor(context, borderColor),),
+                      boxShadow: globalContainerShadow(),
+                    ),
+                    child:OutlinedButton(
+                      onPressed: () {
+                        _navigateToControleListScreen(context);
+                      },
+                      child:Column( // Replace with a Row for horizontal icon + text
+
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 20,
+                            width: 20,
+                          ),
+                          Icon(Icons.checklist_rtl, size: 40.0,
+                            color: Theme.of(context).primaryColor,
+                            //shadows: globalContainerShadow(),
+                          ),
+                          const Divider(height: 10,),
+                          const Text("Contrôles", style: TextStyle(color: Color(0xff808080)),)
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const Spacer(),
+
+                  Container(
+                    height: 100,
+                    width: 100,
+                    margin: const EdgeInsets.only(left:10.0,top:0.0,right:10.0,bottom:0.0),
+                    decoration: BoxDecoration(
+                      color: globalBackgroundColor(context, colorBackground),
+                      borderRadius: BorderRadius.circular(10),
+                      border:  Border.all(color: globalBorderColor(context, borderColor),),
+                      boxShadow: globalContainerShadow(),
+                    ),
+                    child:OutlinedButton(
+                      onPressed: () {
+                        _navigateThemeScreen(context);
+                      },
+                      child:Column( // Replace with a Row for horizontal icon + text
+
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 20,
+                            width: 20,
+                          ),
+                          Icon(Icons.settings, size: 40.0,
+                            color: Theme.of(context).primaryColor,
+                            //shadows: globalContainerShadow(),
+                          ),
+                          const Divider(height: 10,),
+                          const Text("Réglages", style: TextStyle(color: Color(0xff808080)),)
+                        ],
+                      ),
+                    ),
+                  ),*/
 
                 ]
             ),
@@ -300,6 +410,10 @@ void _navigateToControleListScreen(BuildContext context) {
 void _navigateThemeScreen(BuildContext context) {
   Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const MyModePage(title: 'Réglages')));
+}
+
+void _navigateToProgNfcScreen(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyConf_NFC()));
 }
 
 
