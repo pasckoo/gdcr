@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class MaterielRepository implements RepositoryMateriel {
 
-  String dataURL = 'http://151.80.129.92/mob/materiel';
+  String dataURL = 'https://code-un-peu.fr/mob/materiel';
 
   @override
   Future<List<MaterielList>> getMaterielList(secteur, famille) async {

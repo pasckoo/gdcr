@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 
 
 class PerioRepository implements RepositoryPerio {
-  String dataURL = 'http://151.80.129.92/mob/perio';
-  //String dataURL = 'http://192.168.5.57/projet_PORTIQUE/mob/materiel';
+  String dataURL = 'https://code-un-peu.fr/mob/perio';
+
 
   @override
   Future<String> getPerioListControle(repMateriel) async {

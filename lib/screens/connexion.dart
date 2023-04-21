@@ -75,8 +75,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
         _authorized = 'Authentification';
       });
       authenticated = await auth.authenticate(
-        localizedReason:
-         'Scannez votre empreinte digitale pour vous authentifier',
+        localizedReason: 'Scannez votre empreinte digitale',
         authMessages: const <AuthMessages>[
           AndroidAuthMessages(
             signInTitle: 'Authentification requise',
@@ -87,7 +86,7 @@ class _MyConnexionWidgetState extends State<MyConnexion> {
         ],
         options: const AuthenticationOptions(
           stickyAuth: true,
-          biometricOnly: true,
+          biometricOnly: false,
         ),
       );
       setState(() {

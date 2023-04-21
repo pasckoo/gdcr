@@ -4,7 +4,7 @@ import '../repository/repositoryUser.dart';
 import 'package:http/http.dart' as http;
 
 class UserRepository implements RepositoryUser {
-  String dataURL = 'http://151.80.129.92/mob/user';
+  String dataURL = 'https://code-un-peu.fr/mob/user';
 
   @override
 

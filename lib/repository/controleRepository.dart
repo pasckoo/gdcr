@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../model/controle.dart';
 
 class ControleRepository implements RepositoryControle {
-  String dataURL = 'http://151.80.129.92/mob/controle';
+  String dataURL = 'https://code-un-peu.fr/mob/controle';
 
   @override
    Future controleAjout(

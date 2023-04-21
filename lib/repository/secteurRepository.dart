@@ -3,7 +3,7 @@ import '../repository/repositorySecteur.dart';
 import 'package:http/http.dart' as http;
 
 class SecteurRepository implements RepositorySecteur {
-  String dataURL = 'http://151.80.129.92/mob/secteur';
+  String dataURL = 'https://code-un-peu.fr/mob/secteur';
   @override
 
   Future<String> getSecteurList() async {
